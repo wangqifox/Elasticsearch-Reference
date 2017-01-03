@@ -13,3 +13,4 @@ Elasticsearch -> Indices -> Types -> Documents -> Fields
 - analyser -> 分析器
 - mapping -> 映射
 - field -> 字段
+- shard -> 分片
