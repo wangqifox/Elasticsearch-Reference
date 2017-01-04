@@ -2,6 +2,7 @@
 
 * [映射](mapping/mapping.md)
   * [字段数据类型](mapping/Field datatypes.md)
+    * [日期类型](mapping/Field datatypes/Date datatype.md)
   * [元字段](mapping/meta-fields.md)
   * [映射参数](mapping/Mapping parameters.md)
   * [动态映射](mapping/dynamic mapping.md)
