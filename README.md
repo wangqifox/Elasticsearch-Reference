@@ -6,6 +6,7 @@
   * [元字段](mapping/meta-fields.md)
   * [映射参数](mapping/Mapping parameters.md)
   	* [boost](mapping/Mapping parameters/boost.md)
+  	* [doc_values](mapping/Mapping parameters/doc_values.md)
   * [动态映射](mapping/dynamic mapping.md)
 
 ```
