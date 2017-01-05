@@ -29,7 +29,7 @@ curl -XPUT 'localhost:9200/my_index?pretty' -d'
 - 1 2 `title`和`content`字段包含在`_all`字段中
 - 3 `date`字段不包含在`_all`字段中
 
-> 同一个索引中相同名字的字段可以有不同的`include_in_all`。可以通过`PUT mapping API`关闭以存在字段的`include_in_all`值。
+> 同一个索引中相同名字的字段可以有不同的`include_in_all`。可以通过`PUT mapping API`更新已存在字段的`include_in_all`值。
 
 `include_in_all`参数可以在类型级别和`object`或者`nested`字段上配置，子字段可以继承这样的设置。
 

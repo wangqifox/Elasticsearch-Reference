@@ -36,7 +36,7 @@ curl -XPUT 'localhost:9200/my_index/my_type/2?pretty' -d'
 - 1 `text`字段正常被索引，`number_one`字段忽略
 - 2 整个文档都会被拒绝，因为`number_two`不允许错误的值。
 
-> 同一个索引中相同名字的字段可以有不同的`ignore_malformed`。可以通过`PUT mapping API`关闭以存在字段的`ignore_malformed`值。
+> 同一个索引中相同名字的字段可以有不同的`ignore_malformed`。可以通过`PUT mapping API`关闭已存在字段的`ignore_malformed`值。
 
 ## 索引级别的默认值
 
