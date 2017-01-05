@@ -6,7 +6,15 @@
   * [元字段](mapping/meta-fields.md)
   * [映射参数](mapping/Mapping parameters.md)
   	* [boost](mapping/Mapping parameters/boost.md)
-  	* [doc_values](mapping/Mapping parameters/doc_values.md)
+    * [copy_to](mapping/Mapping parameters/copy_to.md)
+    * [doc_values](mapping/Mapping parameters/doc_values.md)
+    * [format](mapping/Mapping parameters/format.md)
+    * [ignore_malformed](mapping/Mapping parameters/ignore_malformed.md)
+    * [include_in_all](mapping/Mapping parameters/include_in_all.md)
+    * [index](mapping/Mapping parameters/index.md)
+    * [null_value](mapping/Mapping parameters/null_value.md)
+    * [properties](mapping/Mapping parameters/properties.md)
+    * [store](mapping/Mapping parameters/store.md)
   * [动态映射](mapping/dynamic mapping.md)
 
 ```
