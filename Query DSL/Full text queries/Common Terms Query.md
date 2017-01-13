@@ -129,4 +129,97 @@ curl -XGET 'localhost:9200/_search?pretty' -d'
 
 ### minimum_should_match
 
-。。。
+使用`low_freq`和`high_freq`参数可以在低频和高频分词上使用不同的`minimum_should_match`。以下是提供额外参数的例子：
+
+```
+curl -XGET 'localhost:9200/_search?pretty' -d'
+{
+    "query": {
+        "common": {
+            "body": {
+                "query": "nelly the elephant not as a cartoon",
+                    "cutoff_frequency": 0.001,
+                    "minimum_should_match": {
+                        "low_freq" : 2,
+                        "high_freq" : 3
+                    }
+            }
+        }
+    }
+}'
+```
+
+大致上和以下的查询相等：
+
+```
+curl -XGET 'localhost:9200/_search?pretty' -d'
+{
+    "query": {
+        "bool": {
+            "must": {
+                "bool": {
+                    "should": [
+                    { "term": { "body": "nelly"}},
+                    { "term": { "body": "elephant"}},
+                    { "term": { "body": "cartoon"}}
+                    ],
+                    "minimum_should_match": 2
+                }
+            },
+            "should": {
+                "bool": {
+                    "should": [
+                    { "term": { "body": "the"}},
+                    { "term": { "body": "not"}},
+                    { "term": { "body": "as"}},
+                    { "term": { "body": "a"}}
+                    ],
+                    "minimum_should_match": 3
+                }
+            }
+        }
+    }
+}'
+```
+
+在这种情况下，意味着高频分词只有当匹配到三个分词时才会对相关性产生影响。`minimum_should_match`对高频分词最有趣的使用是当只有高频分词时：
+
+```
+curl -XGET 'localhost:9200/_search?pretty' -d'
+{
+    "query": {
+        "common": {
+            "body": {
+                "query": "how not to be",
+                    "cutoff_frequency": 0.001,
+                    "minimum_should_match": {
+                        "low_freq" : 2,
+                        "high_freq" : 3
+                    }
+            }
+        }
+    }
+}'
+```
+
+大致上和以下的查询相等：
+
+```curl -XGET 'localhost:9200/_search?pretty' -d'
+{
+    "query": {
+        "bool": {
+            "should": [
+            { "term": { "body": "how"}},
+            { "term": { "body": "not"}},
+            { "term": { "body": "to"}},
+            { "term": { "body": "be"}}
+            ],
+            "minimum_should_match": "3<50%"
+        }
+    }
+}'
+```
+
+高频率生成的查询比`AND`查询的限制性稍小。
+
+`common terms`查询也支持`boost`, `analyzer`, `disable_coord`参数。
