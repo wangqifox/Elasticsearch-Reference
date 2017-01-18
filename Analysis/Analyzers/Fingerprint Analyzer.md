@@ -39,6 +39,40 @@ curl -XPOST 'localhost:9200/_analyze?pretty' -d'
 
 |separator|用来接连分词的字符。默认是空格|
 |max_output_size|分词最大的长度。默认是255。长度大于该值的分词会被丢弃。|
-|stopwords||
-|||
+|stopwords|预定义的停词，比如`_english_`，或者是包含停词的列表。默认是`_none_`|
+|stopwords_path|停词文件的路径|
 
+查看`Stop Token Filter`获取关于停词配置的详细信息。
+
+## 示例配置
+
+在这个例子中，我们配置指纹分析器使用预定义的英文停词列表：
+
+```
+curl -XPUT 'localhost:9200/my_index?pretty' -d'
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_fingerprint_analyzer": {
+          "type": "fingerprint",
+          "stopwords": "_english_"
+        }
+      }
+    }
+  }
+}
+'
+curl -XPOST 'localhost:9200/my_index/_analyze?pretty' -d'
+{
+  "analyzer": "my_fingerprint_analyzer",
+  "text": "Yes yes, Gödel said this sentence is consistent and."
+}
+'
+```
+
+产生以下分词：
+
+```
+[ consistent godel said sentence yes ]
+```
