@@ -129,25 +129,154 @@ curl -XPOST 'localhost:9200/place/_search?pretty&pretty' -H 'Content-Type: appli
 '
 ```
 
-> 如果在查询阶段不提供类别，
+> 如果在查询阶段不提供类别，将考虑所有的索引文档。应该避免在启用类别的完成字段上执行不带类别的查询，这会降低搜索性能。
 
+对某些类别的建议可以提升其相对于其他建议的分值。以下示例通过类别来过滤建议，提升某些类别关联的建议。
 
+```
+curl -XPOST 'localhost:9200/place/_search?pretty&pretty' -H 'Content-Type: application/json' -d'
+{
+    "suggest": {
+        "place_suggestion" : {
+            "prefix" : "tim",
+            "completion" : {
+                "field" : "suggest",
+                "size": 10,
+                "contexts": {
+                    "place_type": [     // 1
+                        { "context" : "cafe" },
+                        { "context" : "restaurants", "boost": 2 }
+                     ]
+                }
+            }
+        }
+    }
+}
+'
+```
 
+- 1 上下文查询过滤关联类别`cafe`和`restaurants`的建议，将关联`restaurants`的建议提升因子2。
 
+除了接受类别值之外，上下文查询可以由多个类别上下文子句组成。类别上下文子句支持以下参数：
 
+|参数|说明|
+|---|----|
+|`context`|类别值，用于过滤或提升。该参数是强制的|
+|`boost`|建议的分值应该提升的因子，通过将建议的权重乘以`boost`值来计算分值。默认是1|
+|`prefix`|类别值是否应该被看做前缀。比如，如果将其设置为`true`，通过指定类别前缀`type`就可以过滤`type1`,`type2`等等。默认为`false`|
 
+## 地理位置上下文
 
+`geo`上下文允许你在索引阶段将一个或多个地理点或`geohash`关联到建议。在查询阶段，如果建议在指定地理位置的某个距离内，可以过滤或提升建议。
 
+在内部，地理点被编码为具有指定精度的geohash。
 
+### 地理映射
 
+除了`path`设置，`geo`上下文映射接受以下设置。
 
+|参数|说明|
+|---|---|
+|`precision`|geohash索引精度的定义。可以指定为一个距离值（5m, 10km等）或者一个原始的geohash精度（1..12）。默认是一个原始geohash精度，值为6。|
 
+> 索引阶段的`precision`设置了查询阶段使用的最大geohash精度。
 
+### 索引地理上下文
 
+`geo`上下文可以随建议一起显式设置，或者通过`path`参数从文档的地理点字段索引，类似于`category`上下文。将多个地理位置上下文与建议关联，会对每个地理位置的建议建立索引。以下示例对具有两个地理位置上下文的建议进行索引。
 
+```
+curl -XPUT 'localhost:9200/place/shops/1?pretty' -H 'Content-Type: application/json' -d'
+{
+    "suggest": {
+        "input": "timmy\u0027s",
+        "contexts": {
+            "location": [
+                {
+                    "lat": 43.6624803,
+                    "lon": -79.3863353
+                },
+                {
+                    "lat": 43.6624718,
+                    "lon": -79.3873227
+                }
+            ]
+        }
+    }
+}
+'
+```
 
+## 地理位置查询
 
+建议可以根据它们与一个或多个地理点的接近程度而被过滤和提升。以下示例过滤落在区域的建议，区域由geohash编码的地理点表示。
 
+```
+curl -XPOST 'localhost:9200/place/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+    "suggest": {
+        "place_suggestion" : {
+            "prefix" : "tim",
+            "completion" : {
+                "field" : "suggest",
+                "size": 10,
+                "contexts": {
+                    "location": {
+                        "lat": 43.662,
+                        "lon": -79.380
+                    }
+                }
+            }
+        }
+    }
+}
+'
+```
 
+> 当查询阶段指定了较低精度的位置时，将考虑落入该区域被的所有建议。
 
+落入区域中的建议相较于其他建议在分值上有所提升，如下所示：
+
+```
+curl -XPOST 'localhost:9200/place/_search?pretty&pretty' -H 'Content-Type: application/json' -d'
+{
+    "suggest": {
+        "place_suggestion" : {
+            "prefix" : "tim",
+            "completion" : {
+                "field" : "suggest",
+                "size": 10,
+                "contexts": {
+                    "location": [   // 1
+                        {
+                            "lat": 43.6624803,
+                            "lon": -79.3863353,
+                            "precision": 2
+                        },
+                        {
+                            "context": {
+                                "lat": 43.6624803,
+                                "lon": -79.3863353
+                            },
+                            "boost": 2
+                        }
+                     ]
+                }
+            }
+        }
+    }
+}
+'
+```
+
+- 1 上下文查询过滤落在地理位置上的建议，地理位置(43.662, -79.380)以geohash的格式，精度为2。落在精度为6的地理位置(43.6624803, -79.3863353)上的建议通过因子2提升。
+
+除了接受上下文值，上下文查询可以由多个上下文子句组成。`category`上下文子句支持以下参数：
+
+|参数|说明|
+|---|----|
+|`context`|地理点对象或者geohash字符串，用于过滤或提升建议。该参数为必须|
+|`boost`|用于建议分值提升的因子，通过将建议的权重乘以该因子来计算分值，默认为1|
+|`precision`|geohash编码为查询地理点的精度。可以指定为距离值(5m, 10km等)，或者原始geohash精度(1..12)。默认是索引阶段的精度。|
+|`neighbours`|接受精度值数组，其中应该考虑相邻的geohash。精度值可以为距离值(5m, 10km等)，或者原始geohash精度(1..12)。默认生成索引阶段精度级别的邻居。|
 
