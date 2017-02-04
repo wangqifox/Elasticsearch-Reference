@@ -277,6 +277,6 @@ curl -XPOST 'localhost:9200/place/_search?pretty&pretty' -H 'Content-Type: appli
 |---|----|
 |`context`|地理点对象或者geohash字符串，用于过滤或提升建议。该参数为必须|
 |`boost`|用于建议分值提升的因子，通过将建议的权重乘以该因子来计算分值，默认为1|
-|`precision`|geohash编码为查询地理点的精度。可以指定为距离值(5m, 10km等)，或者原始geohash精度(1..12)。默认是索引阶段的精度。|
+|`precision`|geohash编码为查询地理点的精度。可以指定为距离值(5m, 10km等)，或者原始geohash精度(1..12)。默认是索引阶段的精度级别。|
 |`neighbours`|接受精度值数组，其中应该考虑相邻的geohash。精度值可以为距离值(5m, 10km等)，或者原始geohash精度(1..12)。默认生成索引阶段精度级别的邻居。|
 
