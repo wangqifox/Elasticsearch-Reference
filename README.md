@@ -1,4 +1,4 @@
-# Elasticsearch 文档
+# Elasticsearch 文档中文翻译
 
 * [Getting Started]
   * [Basic Concepts](Getting%20Started/Basic%20Concepts.md)
