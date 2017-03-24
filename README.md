@@ -3,30 +3,30 @@
 * [Getting Started]
   * [Basic Concepts](Getting%20Started/Basic%20Concepts.md)
   * [Exploring Your Data]
-    * [Executing Aggregations](Getting started/Executing Aggregations.md)
+    * [Executing Aggregations](Getting%20started/Executing%20Aggregations.md)
 * [API Conventions]
-  * [Common options](API Conventions/Common options.md)
+  * [Common options](API%20Conventions/Common%20options.md)
 * [Document APIs]
-  * [Reading and Writing documents](Document APIs/Reading and Writing documents.md)
-  * [Index API](Document APIs/Index API.md)
+  * [Reading and Writing documents](Document%20APIs/Reading%20and%20Writing documents.md)
+  * [Index API](Document%20APIs/Index%20API.md)
 * [Search APIs]
-  * [Search](Search APIs/Search.md)
-  * [Suggesters](Search APIs/Suggesters.md)
-    * [Term suggester](Search APIs/Suggesters/Term suggester.md)
-    * [Phrase Suggester](Search APIs/Suggesters/Phrase Suggester.md)
-    * [Completion Suggester](Search APIs/Suggesters/Completion Suggester.md)
-    * [Context Suggester](Search APIs/Suggesters/Context Suggester.md)
+  * [Search](Search%20APIs/Search.md)
+  * [Suggesters](Search%20APIs/Suggesters.md)
+    * [Term suggester](Search%20APIs/Suggesters/Term%20suggester.md)
+    * [Phrase Suggester](Search%20APIs/Suggesters/Phrase%20Suggester.md)
+    * [Completion Suggester](Search%20APIs/Suggesters/Completion%20Suggester.md)
+    * [Context Suggester](Search%20APIs/Suggesters/Context%20Suggester.md)
   * [Request Body Search]
-    * [Query](Search APIs/Request Body Search/Query.md)
-    * [From/Size](Search APIs/Request Body Search/From_Size.md)
-    * [Sort](Search APIs/Request Body Search/Sort.md)
-    * [Named Queries](Search APIs/Request Body Search/Named Queries.md)
+    * [Query](Search%20APIs/Request%20Body%20Search/Query.md)
+    * [From/Size](Search%20APIs/Request%20Body%20Search/From_Size.md)
+    * [Sort](Search%20APIs/Request%20Body%20Search/Sort.md)
+    * [Named Queries](Search%20APIs/Request%20Body%20Search/Named%20Queries.md)
 * [Indices APIs]
   * [Refresh](Indices/Refresh.md)
 * [Query DSL]
-  * [Query and filter context](Query DSL/Query and filter context.md)
-  * [Match All Query](Query DSL/Match All Query.md)
-  * [Full text queries](Query DSL/Full text queries.md)
+  * [Query and filter context](Query%20DSL/Query%20and%20filter%20context.md)
+  * [Match All Query](Query%20DSL/Match%20All%20Query.md)
+  * [Full text queries](Query%20DSL/Full%20text%20queries.md)
     * [Match Query](Query DSL/Full text queries/Match Query.md)
     * [Match Phrase Query](Query DSL/Full text queries/Match Phrase Query.md)
     * [Match Phrase Prefix Query](Query DSL/Full text queries/Match Phrase Prefix Query.md)
