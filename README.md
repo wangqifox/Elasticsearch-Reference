@@ -1,7 +1,7 @@
 # Elasticsearch 文档
 
 * [Getting Started]
-  * [Basic Concepts](Getting started/Basic Concepts.md)
+  * [Basic Concepts](Getting\ started/Basic\ Concepts.md)
   * [Exploring Your Data]
     * [Executing Aggregations](Getting started/Executing Aggregations.md)
 * [API Conventions]
