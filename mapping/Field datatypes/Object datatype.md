@@ -69,9 +69,9 @@ curl -XPUT 'localhost:9200/my_index?pretty' -d'
 
 |参数|说明|
 |---|---|
-|dynamic||
-|enabled||
-|include_in_all||
-|properties||
+|dynamic|新属性是否应动态添加到现有对象。接受true(默认),false和strict|
+|enabled|是否应该对对象字段给出的JSON值进行解析和索引(true，默认)或完全忽略(false)|
+|include_in_all|为对象中的所有属性设置默认的`include_in_all`值，对象本身没有添加到_all字段。|
+|properties|对象内的字段，可以是任何数据类型，包括对象。可以将新属性添加到现有对象。|
 
 > 如果你需要索引对象的数组而不是单个的对象，可以使用`nested`数据类型。
