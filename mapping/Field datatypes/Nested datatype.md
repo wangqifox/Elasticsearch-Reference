@@ -139,9 +139,9 @@ curl -XGET 'localhost:9200/my_index/_search?pretty' -d'
 
 |参数|说明|
 |---|---|
-|dynamic||
-|include_in_all||
-|properties||
+|dynamic|新属性是否应动态添加到现有对象。接受true(默认),false和strict|
+|include_in_all|为对象中的所有属性设置默认的`include_in_all`值，对象本身没有添加到_all字段。|
+|properties|对象内的字段，可以是任何数据类型，包括对象。可以将新属性添加到现有对象。|
 
 > 因为嵌套文档是作为单独的文档被索引的，所以嵌套文档只能被`nested`查询、`nested / reverse_nested`或者`nested inner hits`访问。
 > 比如，一个`string`字段包含嵌套文档，嵌套文档中`index_options`设置为`offsets`以使用postings highlighter，这些偏移量在主要的高亮阶段是不可用的。必须通过`nested inner hits`来进行高亮操作。
