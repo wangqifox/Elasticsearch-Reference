@@ -46,6 +46,6 @@ curl -XGET 'localhost:9200/my_index/_search?pretty' -d'
 
 几个重要的点：
 
-- 复制的是字段值，而不是terms（由分析过程产生）
+- 复制的是字段值，而不是terms（由分析过程产生的分词）
 - 原始的`_source`字段不会为了显示复制的值而修改
 - 相同的值可以复制到多个字段中，如`"copy_to":["field_1","field_2"]`
