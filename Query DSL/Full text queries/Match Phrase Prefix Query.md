@@ -1,6 +1,6 @@
 # Match Phrase Prefix Query
 
-`match_phrase_prefix`和`match_phrase`一样，除了最后一个分词允许前缀匹配。
+`match_phrase_prefix`和`match_phrase`一样，除了文本中最后一个分词允许前缀匹配。
 
 ```
 curl -XGET 'localhost:9200/_search?pretty' -d'

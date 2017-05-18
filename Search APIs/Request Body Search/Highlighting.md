@@ -196,7 +196,7 @@ curl -XGET 'localhost:9200/_search?pretty' -H 'Content-Type: application/json' -
 
 ## 高亮片段
 
-每个字段高亮可以控制高亮片段的字符数（默认为5）。
+每个字段高亮可以控制高亮片段的字符数（默认为100），以及片段的最大数量（默认为5）。例如：
 
 ```
 curl -XGET 'localhost:9200/_search?pretty' -H 'Content-Type: application/json' -d'
@@ -251,7 +251,7 @@ curl -XGET 'localhost:9200/_search?pretty' -H 'Content-Type: application/json' -
 '
 ```
 
-使用`fvh`时，可以使用`fragment_offset`参数来控制开始高亮显示的便宜量。
+使用`fvh`时，可以使用`fragment_offset`参数来控制开始高亮显示的偏移量。
 
 在没有匹配片段高亮显示的情况下，默认不返回任何东西。相反，我们可以通过将`no_match_size`（默认为0）设置为要返回的文本的长度，从字段的开始返回一段文本。实际长度可能会比指定的长度短，因为它试图在单词边界上断开。当使用postings highlighter时，无法控制片段的实际大小，因此只要`no_match_size`大于0，第一个句子就会返回。
 

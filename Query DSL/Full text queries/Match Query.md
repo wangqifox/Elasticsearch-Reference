@@ -17,7 +17,7 @@ curl -XGET 'localhost:9200/_search?pretty' -d'
 
 ## match
 
-`match`查询时一个布尔查询。这意味着文本经过分析，使用提供的文本构建一个布尔查询。`operator`标志可以设置为`or`或`and`（默认是`or`）来控制布尔子句。可选的`should`子句匹配的最小数量可以使用`minimum_should_match`参数来设置。
+`match`查询是一个布尔查询。这意味着文本经过分析，使用提供的文本构建一个布尔查询。`operator`标志可以设置为`or`或`and`（默认是`or`）来控制布尔子句。可选的`should`子句匹配的最小数量可以使用`minimum_should_match`参数来设置。
 
 可以设置分析器来控制文本的分析过程。默认是映射中定义的分析器，或者默认的搜索分析器。
 

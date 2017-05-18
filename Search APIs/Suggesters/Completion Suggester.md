@@ -2,7 +2,7 @@
 
 `completion`建议器提供了自动完成/search-as-you-type功能。这是一项导航性的功能，将用户输入的结果引导到相关的结果，提升搜索精度。它不用于拼写校正或did-you-mean功能，像`term`或`phrase`建议器。
 
-理想情况下，自动完成功能应该和用户的输入一样快，对用户的输入立即提供反馈。因此，`completion`建议器优化了速度。建议器使用允许快速查询的数据结构，但是构件成本高，且存储在内存中。
+理想情况下，自动完成功能应该和用户的输入一样快，对用户的输入立即提供反馈。因此，`completion`建议器优化了速度。建议器使用允许快速查询的数据结构，但是构建成本高，且存储在内存中。
 
 ## 映射
 
@@ -27,7 +27,7 @@ curl -XPUT 'localhost:9200/music?pretty' -H 'Content-Type: application/json' -d'
 '
 ```
 
-映射支持一下参数：
+映射支持以下参数：
 
 - `analyzer`：索引分析器，默认是`simple`。你可能会疑惑我们为什么不选择`standard`分析器。这里我们尝试简单地理解行为，如果我们索引字段内容`At the Drive-in`，对于`a`和`d`无法获得任何建议。
 - `search_analyzer`：搜索分析器，默认是`analyzer`的值。
@@ -263,18 +263,4 @@ curl -XPOST 'localhost:9200/music/_search?pretty&pretty' -H 'Content-Type: appli
 |---|----|
 |`flags`|可能的标志是`ALL`（默认）,`ANYSTRING`, `COMPLEMENT`, `EMPTY`, `INTERSECTION`, `INTERVAL`, `NONE`。具体的意义查看`regexp-syntax`|
 |`max_determinized_states`|正则表达式是危险的，很容易在无意中创建了无恶意的表达式，需要指数数量的内部确定的自动机状态（以及相应的RAM和CPU）来执行Lucene。Lucene使用`max_determinized_states`设置（默认为10000）阻止这些操作。你可以提高此限制以允许执行更复杂的正则表达式。|
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

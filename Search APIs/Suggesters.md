@@ -2,7 +2,9 @@
 
 建议功能基于提供的文本来建议相似的分词。部分建议功能仍然在开发中。
 
-建议请求部分跟随查询一起定义，在`_search`请求中或者通过REST`_suggest`端点
+建议请求部分在`_search`请求中跟随查询一起定义。
+
+> `_suggest`已被弃用，改成通过`_search`来使用建议功能。5.0中，`_search`已经过优化，仅用于建议搜索请求。
 
 ```
 curl -XPOST 'localhost:9200/twitter/_search?pretty' -H 'Content-Type: application/json' -d'
@@ -18,21 +20,6 @@ curl -XPOST 'localhost:9200/twitter/_search?pretty' -H 'Content-Type: applicatio
       "term" : {
         "field" : "message"
       }
-    }
-  }
-}
-'
-```
-
-针对`_suggest`端点执行的建议请求应该忽略`suggest`周围的元素，该元素仅在建议请求是搜索的一部分时使用。
-
-```
-curl -XPOST 'localhost:9200/_suggest?pretty' -H 'Content-Type: application/json' -d'
-{
-  "my-suggestion" : {
-    "text" : "tring out Elasticsearch",
-    "term" : {
-      "field" : "message"
     }
   }
 }
@@ -60,7 +47,7 @@ curl -XPOST 'localhost:9200/_suggest?pretty' -H 'Content-Type: application/json'
 '
 ```
 
-下面是`my-suggest-1`和`my-suggest-2`的响应。每个建议响应包含多个条目。每个条目实际上是来自建议文本的分词，包含建议条目文本、初始的起始便宜量、建议文本的长度，随意数量的选项。
+下面是`my-suggest-1`和`my-suggest-2`的响应。每个建议响应包含多个条目。每个条目实际上是来自建议文本的分词，包含建议条目文本、初始的起始偏移量、建议文本的长度，随意数量的选项。
 
 ```
 {
