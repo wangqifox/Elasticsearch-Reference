@@ -75,7 +75,7 @@ curl -XGET 'localhost:9200/_search?pretty' -H 'Content-Type: application/json' -
 
 ## 排序
 
-通过平常的排序选线，父文档无法根据匹配的子文档的字段来排序。如果你需要根据子文档的字段来排序父文档，你必须使用`function_score`查询，只能根据`_score`来排序。
+通过平常的排序选项，父文档无法根据匹配的子文档的字段来排序。如果你需要根据子文档的字段来排序父文档，你必须使用`function_score`查询，且只能根据`_score`来排序。
 
 根据子文档的`click_count`字段来排序：
 
